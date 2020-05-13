@@ -5,6 +5,7 @@ import threading
 import argparse
 import sys
 import os
+import User_agent
 
 class dirscan(threading.Thread):
     def __init__(self,queue,status_code,output):
@@ -24,7 +25,7 @@ class dirscan(threading.Thread):
 
 def scan(url,status_code,output):
     requests.packages.urllib3.disable_warnings()
-    html=requests.get(url=url,timeout=4,verify=False)
+    html=requests.get(url=url,timeout=4,verify=False,User_agent=User_agent.random_agent())
     if html.status_code == int(status_code):
         print status_code +'  '+  url
         output_file(url,output,status_code)
